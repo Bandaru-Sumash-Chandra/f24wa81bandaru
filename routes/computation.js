@@ -1,16 +1,23 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-router.get('/', (req, res) => {
-    let x = req.query.x ? Number(req.query.x) : Math.random() * 10; 
-    if (isNaN(x)) {
-        x = Math.random() * 10;
-    }
+router.get('/', function(req, res) {
+  // Check if 'x' is provided in the query, otherwise generate a random number
+  const x = req.query.x ? parseFloat(req.query.x) : Math.random();
 
-    const fnName = "Math.abs";
-    const y = Math.abs(x);
-    const response = `${fnName} applied to ${x} is ${y}`;
-    res.send(response);
+  // Apply the math functions
+  const absResult = Math.abs(x);
+  const acosResult = Math.acos(x);
+  const sinResult = Math.sin(x);
+  const sinhResult = Math.sinh(x);
+
+  // Prepare the response string with each result on a separate line
+  const response = Math.abs applied to ${x} is ${absResult}<br> +
+                   Math.acos applied to ${x} is ${acosResult}<br> +
+                   Math.sin applied to ${x} is ${sinResult}<br> +
+                   Math.sinh applied to ${x} is ${sinhResult};
+  
+  res.send(response);
 });
 
 module.exports = router;
